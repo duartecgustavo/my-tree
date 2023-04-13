@@ -13,12 +13,6 @@ const ContentPrimaryStyle = styled.div`
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    
-    .ContentPrimaryContainer {
-        display: flex; 
-        justify-content: space-between;
-        align-items: center;
-    }
 
     .div-row{
         align-items: center;

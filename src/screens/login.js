@@ -1,7 +1,9 @@
+import LoginArea from "../components/login/login-area";
+
 export default function Login() {
     return (
         <>
-            <h1>LOGIN!</h1>
+            <LoginArea />
         </>
     )
 }
