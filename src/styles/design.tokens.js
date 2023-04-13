@@ -1,21 +1,24 @@
 export const Colors = {
     WHITE: '#FFFFFF',
-    WHITE_GRAY: '#FFFFFF',
+    WHITE_GRAY: '#e9e9e9',
     BLACK: '#000000',
     BLACK_GRAY: '#000000',
-    BLUE_MAIN: '#000000',
-    BLUE_LIGHT: '#000000',
+    BLUE_MAIN: '#00AEEF',
+    BLUE_LIGHT: '#33BEF2',
+    BLUE_LIGHT2: '#61c8ed',
     BLUE_DARK: '#000000',
-    YELLOW: '#000000',
-    RED: '#000000',
-    GREEN: '#000000',
-    ORANGE: '#000000',
-    PINK: '#000000',
+    YELLOW: '#FFF855',
+    RED: '#EF860B',
+    GREEN: '#00EF0A',
+    ORANGE: '#EF860B',
+    PINK: '#FF32DE',
     VIOLET: '#000000',
 }
+
 export const FontsFamilies = {
     PRIMARY: '"Roboto", "Helvetica", "Arial", sans-serif',
 }
+
 export const FontsLetterSpacings = {
     SMALL: '0.5px',
     MEDIUM: '0.15px',

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../screens/login";
 import Cadastro from "../screens/cadastro";
-import Home from "../screens/home";
+import Home from "../screens/home/home";
 import PaginaNaoEncontrada from "../screens/pagina-nao-encontrada";
 
 export const router = createBrowserRouter([
