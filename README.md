@@ -1,3 +1,14 @@
+# Cap 12 - Gamificando - Escalada ESG - Fase 2
+
+Grupo: 
+- Claudemir Romano
+- Leila Barbosa Ribeiro
+- Gustavo Castanho Duarte
+- Renata Souza Ferreira
+- Vinicius Dalla Mello
+
+---
+
 # LINK FIGMA
 
 ### FIGMA DESKTOP
