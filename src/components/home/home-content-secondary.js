@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import HomeContentSecondaryContainer from './home-content-secondary-container';
 import { Colors } from '../../styles/design.tokens';
-import Img1 from '../../assets/img1.png';
-import Img2 from '../../assets/img2.png';
-import Img3 from '../../assets/img3.png';
+import Adubagem from '../../assets/adubagem.png';
+import Amigos from '../../assets/amigos.png';
+import Arido from '../../assets/arido.png';
+import Jardinagem from '../../assets/jardinagem.png';
+import Orquidia from '../../assets/orquidia.png';
+import Verduras from '../../assets/verduras.png';
 
 const ContentSecondaryStyle = styled.div`
     p {
@@ -34,18 +37,15 @@ export default function ContentSecondary() {
                 <p>
                     Uma maneira diferente de aprender a cuidar <br />do meio ambiente  com lições diárias.
                 </p>
-                <p>
-                    Unidade 1
-                </p>
                 <div className="row">
-                    <HomeContentSecondaryContainer color={Colors.BLUE_LIGHT2} src={Img1} title="Cuide de sua orquidia" />
-                    <HomeContentSecondaryContainer color={Colors.PINK} src={Img2} title="Compatilhe com seus amigos" />
-                    <HomeContentSecondaryContainer color={Colors.ORANGE} src={Img3} title="Como realizar adubo" />
+                    <HomeContentSecondaryContainer color={Colors.BLUE_LIGHT2} src={Orquidia} title="Cuide de sua orquidia" />
+                    <HomeContentSecondaryContainer color={Colors.PINK} src={Amigos} title="Compatilhe com seus amigos" />
+                    <HomeContentSecondaryContainer color={Colors.ORANGE} src={Adubagem} title="Como realizar adubo" />
                 </div>
                 <div className="row" style={{ marginBottom: "100px" }}>
-                    <HomeContentSecondaryContainer color={Colors.GREEN} src={Img1} title="Verduras" />
-                    <HomeContentSecondaryContainer color={Colors.YELLOW} src={Img2} title="Jardinagem" />
-                    <HomeContentSecondaryContainer color={Colors.RED} src={Img3} title="Local árido" />
+                    <HomeContentSecondaryContainer color={Colors.GREEN} src={Verduras} title="Verduras" />
+                    <HomeContentSecondaryContainer color={Colors.YELLOW} src={Jardinagem} title="Jardinagem" />
+                    <HomeContentSecondaryContainer color={Colors.RED} src={Arido} title="Local árido" />
                 </div>
             </div>
         </ContentSecondaryStyle>

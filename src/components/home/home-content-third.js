@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Colors } from "../../styles/design.tokens";
+import Img_arvores from '../../assets/imagem_arvores.png';
+
 
 const ContentThirdStyle = styled.div`
     height: 100vh;
@@ -90,7 +92,7 @@ export default function ContentThird() {
                 </Section>
                 <Section className="row section-second-blue">
                     <Section className="col-12 col-lg-6">
-                        <div>Quem esta cuidando?</div>
+                        <img src={Img_arvores} alt="teste" className="img-fluid" />
                     </Section>
                     <Section className="col-12 col-lg-6">
                         <div>Quem esta cuidando?</div>

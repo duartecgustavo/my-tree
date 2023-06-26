@@ -35,10 +35,22 @@ const NavbarStyle = styled.div`
         }
     }
 
-    h1:hover {
+    .h1 {
+        color: ${Colors.BLACK_GRAY};
+    }
+
+    .h1:hover {
         color: ${Colors.WHITE};
         cursor: cell;
         font-weight: bold;
+    }
+
+    .links{
+        gap: 30px;
+    }
+
+    .links > a{
+        font-size: 28px;
     }
 
     @media (max-width: 768px) {
@@ -47,7 +59,7 @@ const NavbarStyle = styled.div`
             font-size: 1.5rem;
         }
 
-        h1 {
+        .h1 {
             font-size: 1.5rem;
         }
     }
@@ -57,10 +69,17 @@ export default function Navbar() {
     return (
         <NavbarStyle>
             <div className="container">
-                <h1>myTree</h1>
-                <NavLink to="/">
-                    Login/Cadastre-se
+                <NavLink className="h1" to="/home">
+                    myTree
                 </NavLink>
+                <div className="links">
+                    <NavLink to="/home/informacoes-de-cuidado">
+                        Cuidado com Meio Ambiente
+                    </NavLink>
+                    <NavLink to="/">
+                        Login/Cadastre-se
+                    </NavLink>
+                </div>
             </div>
         </NavbarStyle>
     )
