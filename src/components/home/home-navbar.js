@@ -74,7 +74,7 @@ export default function Navbar() {
                 </NavLink>
                 <div className="links">
                     <NavLink to="/home/informacoes-de-cuidado">
-                        Cuidado com Meio Ambiente
+                        Cultivar
                     </NavLink>
                     <NavLink to="/">
                         Login/Cadastre-se

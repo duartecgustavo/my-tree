@@ -39,7 +39,7 @@ export default function InfosTabs() {
         <ContentTabsStyle>
             <div className="container">
                 <div className="d-flex justify-content-between">
-                    <h5 className="tab" onClick={() => { setInfo('orquidia') }}>Cultive sua rquidia</h5>
+                    <h5 className="tab" onClick={() => { setInfo('orquidia') }}>Cultive sua orquidia</h5>
                     <h5 className="tab" onClick={() => { setInfo('jardinagem') }}>Dicas de Jardinagem</h5>
                     <h5 className="tab" onClick={() => { setInfo('adubagem') }}>Adubagem</h5>
                     <h5 className="tab" onClick={() => { setInfo('arido') }}>Locais aridos</h5>
