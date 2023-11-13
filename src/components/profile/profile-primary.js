@@ -120,7 +120,7 @@ export default function ContentProfile() {
       const data = await getTreeCount();
       setTreeCount(data.treeCount);
 
-      if (treeCount >= 0 && treeCount <=5 ) {
+      if (treeCount >= 0 && treeCount <= 5) {
         setMedal1(null);
         setMedal2(MedalBronze);
       } else if (treeCount > 5 && treeCount <= 15) {
@@ -155,6 +155,7 @@ export default function ContentProfile() {
     console.log("body", body);
     try {
       await postTree(body);
+      fetchData();
       e.especie = "";
       e.local = "";
       e.foto = "";
@@ -204,7 +205,7 @@ export default function ContentProfile() {
                 <p style={{ fontSize: "18px", fontWeight: "400" }}>
                   Arvores plantadas: <b>{treeCount}</b>
                 </p>
-                <p style={{ fontSize: "18px", fontWeight: "400" }}>CO2 retirado em 50anos: <b>{treeCount*1.1*50}toneladas</b></p>
+                <p style={{ fontSize: "18px", fontWeight: "400" }}>CO2 retirado em 50anos: <b>{treeCount * 1.1 * 50}toneladas</b></p>
               </div>
             </div>
           </div>
@@ -332,10 +333,10 @@ export default function ContentProfile() {
                   <>
                     <p style={{ fontWeight: "600", fontSize: "16px" }}>Faltam X arvores para alcançar o nivel Ouro</p>
                     <div style={{ display: "flex", alignItems: "center", gap: "30px", width: "90%" }}>
-                    {
-                      medal1 &&
-                      <img src={medal1} alt="teste" style={{ width: "40px", cursor: "cell" }} />
-                    }
+                      {
+                        medal1 &&
+                        <img src={medal1} alt="teste" style={{ width: "40px", cursor: "cell" }} />
+                      }
                       <div style={{ display: "flex", flexDirection: "column", width: "100%", alignItems: "center", justifyContent: "center" }}>
                         <progress style={{ width: "100%", height: "40px" }} value={treeCount} max={10} />
                       </div>
