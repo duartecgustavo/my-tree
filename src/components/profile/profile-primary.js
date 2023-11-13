@@ -4,15 +4,21 @@ import Planet_Florest from "../../assets/planetFlorest.png";
 import Avatar from "../../assets/avatar.svg";
 import Tree from "../../assets/tree.svg";
 import Medal from "../../assets/medal.svg";
+import MedalBronze from "../../assets/medal_bronze.svg";
+import MedalPrata from "../../assets/medal_prata.svg";
+import MedalOuro from "../../assets/medal_ouro.svg";
 import Progress from "../../assets/progress.svg";
+import { PlantForm } from "./plant-form";
 import { useState } from "react";
+import { getTreeCount, postTree } from "../../services/postTree";
+import { useEffect } from "react";
 
 const ContentStyle = styled.div`
   display: flex;
   align-items: center;
   margin-top: 50px;
   height: 50vh;
-  padding: 50px 0px;
+  padding: 50px 8px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
@@ -45,6 +51,12 @@ const ContentStyle = styled.div`
     justify-content: center;
     align-items: center;
   }
+  .div-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 const ButtonStyle = styled.button`
@@ -66,39 +78,94 @@ const BackgroundNavbar = styled.div`
   background-color: ${Colors.BLUE_MAIN};
 `;
 
-const contentTabs = {
-  arvores: {
-    title: "Plante sua primeira Árvore",
-    content:
-      "Bem-vindo ao seu perfil de usuário! Aqui você verá posts escritos por nossas equipes de Conteúdo e Florestal, Se você está curioso, plante sua primeira árvore! Você fará parte da nossa comunidade e terá acesso a conteúdos exclusivos.",
-    button: (
-      <>
-        <button
-          style={{
-            backgroundColor: Colors.BLUE_LIGHT,
-            color: "white",
-            fontSize: "18px",
-            padding: "12px",
-            borderRadius: "6px",
-            border: "none",
-            &:hover{backgroundColor: "red"}
-          }}
-        >
-          Plante uma Árvore
-        </button>
-      </>
-    ),
-  },
-  medalhas: "MEDALHAS",
-  progresso: "PROGRESSO",
-};
-
 export default function ContentProfile() {
   const [content, setContent] = useState(null);
+  const [formPlant, setFormPlant] = useState(null);
+  const [treeCount, setTreeCount] = useState(null);
+  const [medal1, setMedal1] = useState();
+  const [medal2, setMedal2] = useState();
+  const contentTabs = {
+    arvores: {
+      title: "Plante sua primeira Árvore",
+      content:
+        "Bem-vindo ao seu perfil de usuário! Aqui você verá posts escritos por nossas equipes de Conteúdo e Florestal, Se você está curioso, plante sua primeira árvore! Você fará parte da nossa comunidade e terá acesso a conteúdos exclusivos.",
+      button: (
+        <>
+          <button
+            onClick={() => setFormPlant(!formPlant)}
+            style={{
+              backgroundColor: Colors.BLUE_MAIN,
+              color: "white",
+              fontSize: "18px",
+              padding: "12px",
+              borderRadius: "6px",
+              border: "none",
+            }}
+          >
+            Plante uma Árvore
+          </button>
+        </>
+      ),
+    },
+    medalhas: {
+      medal_bronze: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Bronze</p><img src={MedalBronze} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>10 arvores</p></div>,
+      medal_prata: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Prata</p><img src={MedalPrata} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>20 arvores</p></div>,
+      medal_ouro: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Ouro</p><img src={MedalOuro} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>30 arvores</p></div>,
+    },
+    progresso: "PROGRESSO",
+  };
+
+  async function fetchData() {
+    try {
+      const data = await getTreeCount();
+      setTreeCount(data.treeCount);
+
+      if (treeCount >= 0 && treeCount <=5 ) {
+        setMedal1(null);
+        setMedal2(MedalBronze);
+      } else if (treeCount > 5 && treeCount <= 15) {
+        setMedal1(MedalBronze);
+        setMedal2(MedalPrata);
+      } else {
+        setMedal1(MedalPrata);
+        setMedal2(MedalOuro);
+      }
+
+      console.log("treeCount", treeCount);
+    } catch (error) {
+      console.error("Erro ao buscar depoimento:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    const body = {
+      especie: e.especie,
+      localPlantio: e.local,
+      foto: e.foto,
+      usuario: {
+        id: 3
+      },
+      dataPlantio: new Date()
+    };
+
+    console.log("body", body);
+    try {
+      await postTree(body);
+      e.especie = "";
+      e.local = "";
+      e.foto = "";
+    } catch (error) {
+    }
+  };
+
   return (
     <>
       <BackgroundNavbar />
-      <ContentStyle>
+      <ContentStyle className="container">
         <div className="div-infos">
           <div
             style={{
@@ -135,9 +202,9 @@ export default function ContentProfile() {
               </p>
               <div style={{ display: "flex", gap: "40px" }}>
                 <p style={{ fontSize: "18px", fontWeight: "400" }}>
-                  Arvores plantadas: 0
+                  Arvores plantadas: <b>{treeCount}</b>
                 </p>
-                <p style={{ fontSize: "18px", fontWeight: "400" }}>CO2_: 0</p>
+                <p style={{ fontSize: "18px", fontWeight: "400" }}>CO2 retirado em 50anos: <b>{treeCount*1.1*50}toneladas</b></p>
               </div>
             </div>
           </div>
@@ -173,7 +240,7 @@ export default function ContentProfile() {
           />
         </div>
       </ContentStyle>
-      <ContentStyle>
+      <ContentStyle className="container">
         <div className="div-tabs">
           <div
             style={{
@@ -235,7 +302,6 @@ export default function ContentProfile() {
                   width: "90%",
                   height: "90%",
                   display: "flex",
-                  border: "1px solid black",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
@@ -257,15 +323,38 @@ export default function ContentProfile() {
                     {contentTabs.arvores.button}
                   </div>
                 ) : content === 2 ? (
-                  contentTabs.medalhas
+                  <div style={{ display: "flex", gap: "80px" }}>
+                    {contentTabs.medalhas.medal_bronze}
+                    {contentTabs.medalhas.medal_prata}
+                    {contentTabs.medalhas.medal_ouro}
+                  </div>
                 ) : (
-                  contentTabs.progresso
+                  <>
+                    <p style={{ fontWeight: "600", fontSize: "16px" }}>Faltam X arvores para alcançar o nivel Ouro</p>
+                    <div style={{ display: "flex", alignItems: "center", gap: "30px", width: "90%" }}>
+                    {
+                      medal1 &&
+                      <img src={medal1} alt="teste" style={{ width: "40px", cursor: "cell" }} />
+                    }
+                      <div style={{ display: "flex", flexDirection: "column", width: "100%", alignItems: "center", justifyContent: "center" }}>
+                        <progress style={{ width: "100%", height: "40px" }} value={treeCount} max={10} />
+                      </div>
+                      <img src={medal2} alt="teste" style={{ width: "40px", cursor: "cell" }} />
+                    </div>
+                  </>
                 )}
               </div>
             }
           </div>
         </div>
       </ContentStyle>
+      {formPlant &&
+        <ContentStyle className="container">
+          <div className="div-form">
+            <PlantForm onSubmit={handleSubmit} />
+          </div>
+        </ContentStyle>
+      }
     </>
   );
 }
