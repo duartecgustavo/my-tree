@@ -120,13 +120,13 @@ export default function ContentProfile() {
       const data = await getTreeCount();
       setTreeCount(data.treeCount);
 
-      if (treeCount >= 0 && treeCount <= 5) {
+      if (treeCount >= 0 && treeCount <= 10) {
         setMedal1(null);
         setMedal2(MedalBronze);
-      } else if (treeCount > 5 && treeCount <= 15) {
+      } else if (treeCount > 10 && treeCount <= 20) {
         setMedal1(MedalBronze);
         setMedal2(MedalPrata);
-      } else {
+      } else if (treeCount > 20 && treeCount <= 30) {
         setMedal1(MedalPrata);
         setMedal2(MedalOuro);
       }
