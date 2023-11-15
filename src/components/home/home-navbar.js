@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Colors } from "../../styles/design.tokens";
 import { NavLink } from "react-router-dom";
 import profile from "../../assets/profile.svg";
+import arrowGetOut from "../../assets/arrowGetArrow.svg";
 
 const NavbarStyle = styled.div`
   height: 100px;
@@ -74,10 +75,14 @@ export default function Navbar() {
         </NavLink>
         <div className="links">
           <NavLink to="/home/informacoes-de-cuidado">Cultivar</NavLink>
-          <NavLink to="/">Login/Cadastre-se</NavLink>
           <NavLink to="/home/profile">
             <div style={{ display: "flex", gap: "6px" }}>
               Profile <img style={{ width: 36 }} src={profile} />
+            </div>
+          </NavLink>
+          <NavLink to="/">
+            <div style={{ display: "flex", gap: "6px" }}>
+              Sair <img style={{ width: 36 }} src={arrowGetOut} />
             </div>
           </NavLink>
         </div>

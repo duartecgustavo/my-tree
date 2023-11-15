@@ -12,6 +12,7 @@ import { PlantForm } from "./plant-form";
 import { useState } from "react";
 import { getTreeCount, postTree } from "../../services/postTree";
 import { useEffect } from "react";
+import Alert from "../../assets/alert.svg";
 
 const ContentStyle = styled.div`
   display: flex;
@@ -82,6 +83,8 @@ export default function ContentProfile() {
   const [content, setContent] = useState(null);
   const [formPlant, setFormPlant] = useState(null);
   const [treeCount, setTreeCount] = useState(null);
+  const [maxCount, setMaxCount] = useState(10);
+  const [countTreesLess, setCountTreesLess] = useState(10);
   const [medal1, setMedal1] = useState();
   const [medal2, setMedal2] = useState();
   const contentTabs = {
@@ -108,9 +111,57 @@ export default function ContentProfile() {
       ),
     },
     medalhas: {
-      medal_bronze: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Bronze</p><img src={MedalBronze} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>10 arvores</p></div>,
-      medal_prata: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Prata</p><img src={MedalPrata} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>20 arvores</p></div>,
-      medal_ouro: <div style={{ display: 'flex', flexDirection: "column", alignItems: 'center' }}><p style={{ fontWeight: "bold", fontSize: "18px" }}>Ouro</p><img src={MedalOuro} alt="teste" style={{ width: "100px", cursor: "cell" }} /><p style={{ fontSize: "18px" }}>30 arvores</p></div>,
+      medal_bronze: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontWeight: "bold", fontSize: "18px" }}>Bronze</p>
+          <img
+            src={MedalBronze}
+            alt="teste"
+            style={{ width: "100px", cursor: "cell" }}
+          />
+          <p style={{ fontSize: "18px" }}>10 arvores</p>
+        </div>
+      ),
+      medal_prata: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontWeight: "bold", fontSize: "18px" }}>Prata</p>
+          <img
+            src={MedalPrata}
+            alt="teste"
+            style={{ width: "100px", cursor: "cell" }}
+          />
+          <p style={{ fontSize: "18px" }}>20 arvores</p>
+        </div>
+      ),
+      medal_ouro: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontWeight: "bold", fontSize: "18px" }}>Ouro</p>
+          <img
+            src={MedalOuro}
+            alt="teste"
+            style={{ width: "100px", cursor: "cell" }}
+          />
+          <p style={{ fontSize: "18px" }}>30 arvores</p>
+        </div>
+      ),
     },
     progresso: "PROGRESSO",
   };
@@ -119,17 +170,25 @@ export default function ContentProfile() {
     try {
       const data = await getTreeCount();
       setTreeCount(data.treeCount);
-
+      console.log(treeCount);
       if (treeCount >= 0 && treeCount <= 10) {
         setMedal1(null);
         setMedal2(MedalBronze);
       } else if (treeCount > 10 && treeCount <= 20) {
         setMedal1(MedalBronze);
         setMedal2(MedalPrata);
+        setMaxCount(20);
       } else if (treeCount > 20 && treeCount <= 30) {
         setMedal1(MedalPrata);
         setMedal2(MedalOuro);
+        setMaxCount(30);
       }
+
+      console.log("treeCount", treeCount);
+      console.log("maxCount", maxCount);
+      const countLess = maxCount - treeCount;
+      console.log("countLess", countLess);
+      setCountTreesLess(countLess);
 
       console.log("treeCount", treeCount);
     } catch (error) {
@@ -139,7 +198,7 @@ export default function ContentProfile() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [treeCount, maxCount]);
 
   const handleSubmit = async (e) => {
     const body = {
@@ -147,9 +206,9 @@ export default function ContentProfile() {
       localPlantio: e.local,
       foto: e.foto,
       usuario: {
-        id: 3
+        id: 3,
       },
-      dataPlantio: new Date()
+      dataPlantio: new Date(),
     };
 
     console.log("body", body);
@@ -159,8 +218,7 @@ export default function ContentProfile() {
       e.especie = "";
       e.local = "";
       e.foto = "";
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -205,7 +263,9 @@ export default function ContentProfile() {
                 <p style={{ fontSize: "18px", fontWeight: "400" }}>
                   Arvores plantadas: <b>{treeCount}</b>
                 </p>
-                <p style={{ fontSize: "18px", fontWeight: "400" }}>CO2 retirado em 50anos: <b>{treeCount * 1.1 * 50}toneladas</b></p>
+                <p style={{ fontSize: "18px", fontWeight: "400" }}>
+                  CO2 retirado em 50anos: <b>{treeCount * 1.1 * 50}toneladas</b>
+                </p>
               </div>
             </div>
           </div>
@@ -252,6 +312,18 @@ export default function ContentProfile() {
               justifyContent: "center",
             }}
           >
+            {" "}
+            <div
+              class="alert alert-primary"
+              role="alert"
+              style={{ display: "flex", gap: 10, alignItems: "center" }}
+            >
+              <img src={Alert} width={22} alt="teste" className="img-fluid" />
+              <b>
+                Para plantar uma arvore, preencha o formulario clicando em
+                "Plante uma Árvore".
+              </b>
+            </div>
             <ButtonStyle
               onClick={() => setContent(1)}
               style={{
@@ -331,16 +403,49 @@ export default function ContentProfile() {
                   </div>
                 ) : (
                   <>
-                    <p style={{ fontWeight: "600", fontSize: "16px" }}>Faltam X arvores para alcançar o nivel Ouro</p>
-                    <div style={{ display: "flex", alignItems: "center", gap: "30px", width: "90%" }}>
-                      {
-                        medal1 &&
-                        <img src={medal1} alt="teste" style={{ width: "40px", cursor: "cell" }} />
-                      }
-                      <div style={{ display: "flex", flexDirection: "column", width: "100%", alignItems: "center", justifyContent: "center" }}>
-                        <progress style={{ width: "100%", height: "40px" }} value={treeCount} max={10} />
+                    <p style={{ fontWeight: "600", fontSize: "16px" }}>
+                      Faltam {countTreesLess} arvores para alcançar o nivel{" "}
+                      {maxCount <= 10
+                        ? "Bronze"
+                        : maxCount > 10 && maxCount <= 20
+                        ? "Prata"
+                        : "Ouro"}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "30px",
+                        width: "90%",
+                      }}
+                    >
+                      {medal1 && (
+                        <img
+                          src={medal1}
+                          alt="teste"
+                          style={{ width: "40px", cursor: "cell" }}
+                        />
+                      )}
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          width: "100%",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <progress
+                          style={{ width: "100%", height: "40px" }}
+                          value={treeCount}
+                          max={maxCount}
+                        />
                       </div>
-                      <img src={medal2} alt="teste" style={{ width: "40px", cursor: "cell" }} />
+                      <img
+                        src={medal2}
+                        alt="teste"
+                        style={{ width: "40px", cursor: "cell" }}
+                      />
                     </div>
                   </>
                 )}
@@ -349,13 +454,13 @@ export default function ContentProfile() {
           </div>
         </div>
       </ContentStyle>
-      {formPlant &&
+      {formPlant && (
         <ContentStyle className="container">
           <div className="div-form">
             <PlantForm onSubmit={handleSubmit} />
           </div>
         </ContentStyle>
-      }
+      )}
     </>
   );
 }
