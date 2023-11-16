@@ -1,4 +1,4 @@
-# Atividade 2 - ESG Platform - FASE 7 - MyTree
+# Atividade 2 - ESG Platform - FASE 7 - MyTree Frontend
 
 ## LINK DEPLOY:
 https://my-tree-three.vercel.app/
