@@ -16,10 +16,11 @@ https://my-tree-three.vercel.app/
 - Formik
 - Styled Components
 - React Router Dom
+- Zustand
 
 ## Consumo API:
 - Consumida a API do Chatgpt3.
-- Consumidas rotas de POST e GET da API do próprio MyTree
+- Consumidas rotas de POST e GET da API do próprio MyTree.
 
 ---
 
